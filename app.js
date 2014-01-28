@@ -1,12 +1,18 @@
-var app = require('express')();
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+var http = require('http');
+var express = require('express');
+var socket_io = require('socket.io');
+
+var app = express();
+var server = http.createServer(app);
+var io = socket_io.listen(server);
 
 server.listen(3000);
 
-app.get('/', function(req, res){
-  res.sendfile(__dirname + '/index.html');
-});
+app.use(express.static(__dirname + '/public'));
+
+// app.get('/', function(req, res){
+//   res.sendfile(__dirname + '/index.html');
+// });
 
 io.sockets.on("connection", function (socket) {
 
