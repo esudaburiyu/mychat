@@ -1,0 +1,20 @@
+
+    *{
+      color:  #7a4171;
+      font-size:19px;
+      margin:0;
+      padding:0;
+    }
+    #msg_list {
+      background-color: #4f9909; /* */
+    }
+    .msg{
+      border: groove;
+      border-radius: 10px;
+      background-color: #fcfaf5;
+      margin: 10px;
+      padding: 5px;
+    }
+    #message{
+      background-color: #fcfaf5;
+    }
