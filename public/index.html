@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>node.js chat</title>
 
+<link rel="stylesheet" type="text/css" href="style.css">
+
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
@@ -12,16 +14,16 @@ $(function (){
 //  var s = io.connect(); //リモート
   var s = io.connect('http://localhost:3000'); //ローカル
 
-  //サーバから受け取るイベント
-  s.on("connect", function () {});  // 接続時
-  s.on("disconnect", function (client) {});  // 切断時
-  s.on("S_to_C_message", function (data) { // サーバーからのメッセージを受け取った時
+  //サーバーからイベントを受理
+  s.on("connect", function () {});
+  s.on("disconnect", function (client) {});
+  s.on("S_to_C_message", function (data) {
     addMessage(data);
   });
 
   //jqueryでメッセージを追加
   function addMessage (data,color,size) {
-    var msg = data.value.replace( /[!@$%<>'"&|]/g, '' ); //タグ記号とかいくつか削除
+    var msg = data.msg; //タグ記号とかいくつか削除
     var date = new Date();
     $("<div class='msg'><p>" + date.toLocaleString() + " [" + data.id + "]</p> <p>" + msg + "</p></div>")
     .hide().prependTo("#msg_list").fadeIn(200)
@@ -33,8 +35,7 @@ $(function (){
     } );
   }
 
-  //クライアントからイベント送信（イベント名は自由に設定できます）
-
+  //クライアントからイベントを送信
   $('#sendMessage').click(function() {
     var msg = $("#message").val();
     $("#message").val("");
@@ -43,28 +44,6 @@ $(function (){
 
 })
   </script>
-
-<style>
-    *{
-      color:  #7a4171;
-      font-size:19px;
-      margin:0;
-      padding:0;
-    }
-    #msg_list {
-      background-color: #4f9909; /* */
-    }
-    .msg{
-      border: groove;
-      border-radius: 10px;
-      background-color: #fcfaf5;
-      margin: 10px;
-      padding: 5px;
-    }
-    #message{
-      background-color: #fcfaf5;
-    }
-</style>
 
 </head>
 <body>
